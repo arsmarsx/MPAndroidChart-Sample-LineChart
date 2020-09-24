@@ -13,6 +13,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -54,17 +55,15 @@ class FirstFragment : Fragment() {
         lineChartSetup(lineChart, description, legend)
 
 
-
-
-
-
         return view
     }
 
     private fun lineChartSetup(lineChart: LineChart, description: Description, legend: Legend){
         lineChart.isDragEnabled = true
         lineChart.setScaleEnabled(false)
-        description.text = ""
+        lineChart.getDescription().setEnabled(false)
+        lineChart.legend.isEnabled = false // description of define line
+
         legend.position= Legend.LegendPosition.BELOW_CHART_CENTER
 
 //        val upper_limit = LimitLine(65F, "danger")
@@ -83,10 +82,13 @@ class FirstFragment : Fragment() {
         leftAxis.removeAllLimitLines()
 //        leftAxis.addLimitLine(upper_limit)
 //        leftAxis.addLimitLine(lower_limit)
-        leftAxis.axisMaximum = 100F
-        leftAxis.axisMinimum = 25F
-        leftAxis.enableGridDashedLine(10F, 10F, 0F)
+        //YAxis.YAxisLabelPosition.OUTSIDE_CHART
+//        leftAxis.axisMaximum = 100F
+//        leftAxis.axisMinimum = 25F
+
+        leftAxis.enableGridDashedLine(30F, 30F, 0F)
         leftAxis.setDrawLimitLinesBehindData(true)
+
 
         val yValues = ArrayList<Entry>()
         yValues.add(Entry(0F, 19F))
@@ -96,9 +98,13 @@ class FirstFragment : Fragment() {
         yValues.add(Entry(4F, 56F))
         yValues.add(Entry(5F, 34F))
 
-        var set1 = LineDataSet(yValues, "data set 1")
-        set1.fillAlpha = 110
+        var set1 = LineDataSet(yValues,"")
+        Legend.LegendPosition.RIGHT_OF_CHART
 
+        set1.fillAlpha = 110
+        set1.setDrawHorizontalHighlightIndicator(false);
+        //set1.disableDashedLine()
+        set1.isHighlightEnabled = false
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(set1)
 
@@ -108,17 +114,18 @@ class FirstFragment : Fragment() {
 
         val values = arrayOf("jan", "feb", "mar", "nov", "oct", "apr")
 
+        //   X
         val xAxis = lineChart.xAxis
         xAxis.setValueFormatter(MyXAxisValuesFormatter(values))
         xAxis.granularity = 1F
-        xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
 
         set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         //set1.isDrawFilledEnabled
 
-        set1.setCircleColor(Color.WHITE);
-        set1.setHighLightColor(Color.rgb(244, 117, 117));
-        set1.setColor(Color.WHITE);
+//        set1.setCircleColor(Color.WHITE);
+//        set1.setHighLightColor(Color.rgb(244, 117, 117));
+//        set1.setColor(Color.WHITE);
         set1.setDrawFilled(true);
         set1.fillColor = Color.RED;
         set1.fillAlpha = 200;

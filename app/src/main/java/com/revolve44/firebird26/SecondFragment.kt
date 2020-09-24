@@ -86,7 +86,7 @@ class SecondFragment : Fragment() {
         yValues.add(Entry(4F, 56F))
         yValues.add(Entry(5F, 34F))
 
-        val set1 = LineDataSet(yValues, "data set 1")
+        val set1 = LineDataSet(yValues, "")
         set1.fillAlpha = 110
 
         val dataSet = ArrayList<ILineDataSet>()
